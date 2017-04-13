@@ -64,6 +64,10 @@
 #include "node.h"
 #include "ring_buffer.h"
 #include "stimulating_device.h"
+// ***GTR START
+#include "recordables_map.h"
+#include "universal_data_logger.h"
+// ***GTR END
 
 namespace nest
 {
@@ -71,14 +75,31 @@ class step_current_generator : public Node
 {
 
 public:
+
+  // ***GTR START
+  /**
+   * Import sets of overloaded virtual functions.
+   * @see Technical Issues / Virtual Functions: Overriding, Overloading, and
+   * Hiding
+   */
+
+  using Node::handle;
+  using Node::handles_test_event;
+  
+  void handle( DataLoggingRequest& );
+  port handles_test_event( DataLoggingRequest&, rport );
+  // ***GTR END
+
+
   step_current_generator();
   step_current_generator( const step_current_generator& );
 
   bool
   has_proxies() const
   {
-    return false;
+    return false;    // ***GTR set this to true
   }
+  
 
   port send_test_event( Node&, rport, synindex, bool );
 
@@ -86,6 +107,12 @@ public:
   void set_status( const DictionaryDatum& );
 
 private:
+  // ***GTR START
+  // The next two classes need to be friends to access the State_ class/member
+  friend class RecordablesMap< step_current_generator >;
+  friend class UniversalDataLogger< step_current_generator >;
+  // ***GTR END
+
   void init_state_( const Node& );
   void init_buffers_();
   void calibrate();
@@ -116,6 +143,11 @@ private:
   {
     size_t idx_; //!< index of current amplitude
     double amp_; //!< current amplitude
+    // ***GTR START
+    Buffers_( step_current_generator& );                  //!<Sets buffer pointers to 0
+    Buffers_( const Buffers_&, step_current_generator& ); //!<Sets buffer pointers to 0
+    UniversalDataLogger< step_current_generator > logger_;
+    // ***GTR END 
   };
 
   // ------------------------------------------------------------
@@ -123,7 +155,33 @@ private:
   StimulatingDevice< CurrentEvent > device_;
   Parameters_ P_;
   Buffers_ B_;
+
+  // ***GTR START
+
+  inline double 
+  get_amp_ () const
+  {
+     return( B_.amp_ );
+  }
+
+  //! Mapping of recordables names to access functions
+  static RecordablesMap< step_current_generator > recordablesMap_;
+  // ***GTR END
 };
+
+
+// ***GTR START
+inline port
+step_current_generator::handles_test_event( DataLoggingRequest& dlr,
+  rport receptor_type )
+{
+  if ( receptor_type != 0 )
+  {
+    throw UnknownReceptorType( receptor_type, get_name() );
+  }
+  return B_.logger_.connect_logging_device( dlr, recordablesMap_ );
+}
+// ***GTR END
 
 inline port
 step_current_generator::send_test_event( Node& target,
@@ -144,6 +202,7 @@ step_current_generator::get_status( DictionaryDatum& d ) const
 {
   P_.get( d );
   device_.get_status( d );
+  ( *d )[ names::recordables ] = recordablesMap_.get_list();  // ***GTR
 }
 
 inline void
@@ -160,7 +219,6 @@ step_current_generator::set_status( const DictionaryDatum& d )
   // if we get here, temporaries contain consistent set of properties
   P_ = ptmp;
 }
-
 
 } // namespace
 
