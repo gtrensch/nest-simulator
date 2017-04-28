@@ -117,6 +117,15 @@ private:
   void init_buffers_();
   void calibrate();
 
+  // ***GTR START 
+  //! Allow multimeter to connect to local instances
+  bool
+  local_receiver() const
+  {
+    return true;
+  }
+  // ***GTR END
+
   void update( Time const&, const long, const long );
 
   struct Buffers_;
