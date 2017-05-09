@@ -830,6 +830,11 @@ def printable_summary(list_of_changed_files,
     table = AsciiTable(summary_table)
     table.inner_row_border = True
     max_width = table.column_max_width(1)
+
+    print('Table max_width: ' + str(max_width))
+    # if max_width < 0:
+    #    max_width = 70
+
     table.table_data[1][1] = '\n'.join(wrap(', '.join(list_of_changed_files),
                                             max_width))
 
