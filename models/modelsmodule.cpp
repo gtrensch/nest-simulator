@@ -43,42 +43,42 @@
 #include "config.h"
 
 // Neuron models
-#include "aeif_cond_alpha.h"
-#include "aeif_cond_alpha_multisynapse.h"
-#include "aeif_cond_beta_multisynapse.h"
-#include "aeif_cond_alpha_RK5.h"
-#include "aeif_cond_exp.h"
-#include "aeif_psc_alpha.h"
-#include "aeif_psc_exp.h"
-#include "amat2_psc_exp.h"
-#include "ginzburg_neuron.h"
-#include "hh_cond_exp_traub.h"
-#include "hh_psc_alpha.h"
-#include "hh_psc_alpha_gap.h"
-#include "ht_neuron.h"
-#include "iaf_chs_2007.h"
-#include "iaf_chxk_2008.h"
-#include "iaf_cond_alpha.h"
-#include "iaf_cond_alpha_mc.h"
-#include "iaf_cond_exp.h"
-#include "iaf_cond_exp_sfa_rr.h"
-#include "iaf_neuron.h"
+// #include "aeif_cond_alpha.h"
+// #include "aeif_cond_alpha_multisynapse.h"
+// #include "aeif_cond_beta_multisynapse.h"
+// #include "aeif_cond_alpha_RK5.h"
+// #include "aeif_cond_exp.h"
+// #include "aeif_psc_alpha.h"
+// #include "aeif_psc_exp.h"
+// #include "amat2_psc_exp.h"
+// #include "ginzburg_neuron.h"
+// #include "hh_cond_exp_traub.h"
+// #include "hh_psc_alpha.h"
+// #include "hh_psc_alpha_gap.h"
+// #include "ht_neuron.h"
+// #include "iaf_chs_2007.h"
+// #include "iaf_chxk_2008.h"
+// #include "iaf_cond_alpha.h"
+// #include "iaf_cond_alpha_mc.h"
+// #include "iaf_cond_exp.h"
+// #include "iaf_cond_exp_sfa_rr.h"
+// #include "iaf_neuron.h"
 #include "iaf_psc_alpha.h"
-#include "iaf_psc_alpha_multisynapse.h"
-#include "iaf_psc_delta.h"
-#include "iaf_psc_exp.h"
-#include "iaf_psc_exp_multisynapse.h"
-#include "iaf_tum_2000.h"
+// #include "iaf_psc_alpha_multisynapse.h"
+// #include "iaf_psc_delta.h"
+// #include "iaf_psc_exp.h"
+// #include "iaf_psc_exp_multisynapse.h"
+// #include "iaf_tum_2000.h"
 #include "izhikevich.h"
-#include "mat2_psc_exp.h"
-#include "mcculloch_pitts_neuron.h"
-#include "parrot_neuron.h"
-#include "pp_pop_psc_delta.h"
-#include "pp_psc_delta.h"
-#include "gif_psc_exp.h"
-#include "gif_psc_exp_multisynapse.h"
-#include "gif_cond_exp.h"
-#include "gif_cond_exp_multisynapse.h"
+// #include "mat2_psc_exp.h"
+// #include "mcculloch_pitts_neuron.h"
+// #include "parrot_neuron.h"
+// #include "pp_pop_psc_delta.h"
+// #include "pp_psc_delta.h"
+// #include "gif_psc_exp.h"
+// #include "gif_psc_exp_multisynapse.h"
+// #include "gif_cond_exp.h"
+// #include "gif_cond_exp_multisynapse.h"
 
 // Stimulation devices
 #include "ac_generator.h"
@@ -176,31 +176,31 @@ ModelsModule::commandstring( void ) const
 void
 ModelsModule::init( SLIInterpreter* )
 {
-  kernel().model_manager.register_node_model< iaf_neuron >( "iaf_neuron",
-    /* private_model */ false,
-    /* deprecation_info */ "NEST 3.0" );
-  kernel().model_manager.register_node_model< iaf_chs_2007 >( "iaf_chs_2007" );
+//  kernel().model_manager.register_node_model< iaf_neuron >( "iaf_neuron",
+//    /* private_model */ false,
+//    /* deprecation_info */ "NEST 3.0" );
+//  kernel().model_manager.register_node_model< iaf_chs_2007 >( "iaf_chs_2007" );
   kernel().model_manager.register_node_model< iaf_psc_alpha >(
     "iaf_psc_alpha" );
-  kernel().model_manager.register_node_model< iaf_psc_alpha_multisynapse >(
-    "iaf_psc_alpha_multisynapse" );
-  kernel().model_manager.register_node_model< iaf_psc_delta >(
-    "iaf_psc_delta" );
-  kernel().model_manager.register_node_model< iaf_psc_exp >( "iaf_psc_exp" );
-  kernel().model_manager.register_node_model< iaf_psc_exp_multisynapse >(
-    "iaf_psc_exp_multisynapse" );
-  kernel().model_manager.register_node_model< iaf_tum_2000 >( "iaf_tum_2000" );
-  kernel().model_manager.register_node_model< amat2_psc_exp >(
-    "amat2_psc_exp" );
-  kernel().model_manager.register_node_model< mat2_psc_exp >( "mat2_psc_exp" );
-  kernel().model_manager.register_node_model< parrot_neuron >(
-    "parrot_neuron" );
-  kernel().model_manager.register_node_model< pp_psc_delta >( "pp_psc_delta" );
-  kernel().model_manager.register_node_model< pp_pop_psc_delta >(
-    "pp_pop_psc_delta" );
-  kernel().model_manager.register_node_model< gif_psc_exp >( "gif_psc_exp" );
-  kernel().model_manager.register_node_model< gif_psc_exp_multisynapse >(
-    "gif_psc_exp_multisynapse" );
+//  kernel().model_manager.register_node_model< iaf_psc_alpha_multisynapse >(
+//    "iaf_psc_alpha_multisynapse" );
+//  kernel().model_manager.register_node_model< iaf_psc_delta >(
+//    "iaf_psc_delta" );
+//  kernel().model_manager.register_node_model< iaf_psc_exp >( "iaf_psc_exp" );
+//  kernel().model_manager.register_node_model< iaf_psc_exp_multisynapse >(
+//    "iaf_psc_exp_multisynapse" );
+//  kernel().model_manager.register_node_model< iaf_tum_2000 >( "iaf_tum_2000" );
+//  kernel().model_manager.register_node_model< amat2_psc_exp >(
+//    "amat2_psc_exp" );
+//  kernel().model_manager.register_node_model< mat2_psc_exp >( "mat2_psc_exp" );
+//  kernel().model_manager.register_node_model< parrot_neuron >(
+//    "parrot_neuron" );
+//  kernel().model_manager.register_node_model< pp_psc_delta >( "pp_psc_delta" );
+//  kernel().model_manager.register_node_model< pp_pop_psc_delta >(
+//    "pp_pop_psc_delta" );
+//  kernel().model_manager.register_node_model< gif_psc_exp >( "gif_psc_exp" );
+//  kernel().model_manager.register_node_model< gif_psc_exp_multisynapse >(
+//    "gif_psc_exp_multisynapse" );
 
   kernel().model_manager.register_node_model< ac_generator >( "ac_generator" );
   kernel().model_manager.register_node_model< dc_generator >( "dc_generator" );
@@ -222,10 +222,10 @@ ModelsModule::init( SLIInterpreter* )
     "ppd_sup_generator" );
   kernel().model_manager.register_node_model< gamma_sup_generator >(
     "gamma_sup_generator" );
-  kernel().model_manager.register_node_model< ginzburg_neuron >(
-    "ginzburg_neuron" );
-  kernel().model_manager.register_node_model< mcculloch_pitts_neuron >(
-    "mcculloch_pitts_neuron" );
+//  kernel().model_manager.register_node_model< ginzburg_neuron >(
+//    "ginzburg_neuron" );
+//  kernel().model_manager.register_node_model< mcculloch_pitts_neuron >(
+//    "mcculloch_pitts_neuron" );
   kernel().model_manager.register_node_model< izhikevich >( "izhikevich" );
   kernel().model_manager.register_node_model< spike_dilutor >(
     "spike_dilutor" );
@@ -322,45 +322,45 @@ ModelsModule::init( SLIInterpreter* )
     name, vmdict, false );
 
 #ifdef HAVE_GSL
-  kernel().model_manager.register_node_model< iaf_chxk_2008 >(
-    "iaf_chxk_2008" );
-  kernel().model_manager.register_node_model< iaf_cond_alpha >(
-    "iaf_cond_alpha" );
-  kernel().model_manager.register_node_model< iaf_cond_exp >( "iaf_cond_exp" );
-  kernel().model_manager.register_node_model< iaf_cond_exp_sfa_rr >(
-    "iaf_cond_exp_sfa_rr" );
-  kernel().model_manager.register_node_model< iaf_cond_alpha_mc >(
-    "iaf_cond_alpha_mc" );
-  kernel().model_manager.register_node_model< hh_psc_alpha >( "hh_psc_alpha" );
-  kernel().model_manager.register_node_model< hh_psc_alpha_gap >(
-    "hh_psc_alpha_gap" );
-  kernel().model_manager.register_node_model< hh_cond_exp_traub >(
-    "hh_cond_exp_traub" );
-  kernel().model_manager.register_node_model< sinusoidal_gamma_generator >(
-    "sinusoidal_gamma_generator" );
-  kernel().model_manager.register_node_model< gif_cond_exp >( "gif_cond_exp" );
-  kernel().model_manager.register_node_model< gif_cond_exp_multisynapse >(
-    "gif_cond_exp_multisynapse" );
-
-  kernel().model_manager.register_node_model< aeif_cond_alpha >(
-    "aeif_cond_alpha" );
-  kernel().model_manager.register_node_model< aeif_cond_exp >(
-    "aeif_cond_exp" );
-  kernel().model_manager.register_node_model< aeif_psc_alpha >(
-    "aeif_psc_alpha" );
-  kernel().model_manager.register_node_model< aeif_psc_exp >( "aeif_psc_exp" );
-  kernel().model_manager.register_node_model< ht_neuron >( "ht_neuron" );
-  kernel().model_manager.register_node_model< aeif_cond_beta_multisynapse >(
-    "aeif_cond_beta_multisynapse" );
-  kernel().model_manager.register_node_model< aeif_cond_alpha_multisynapse >(
-    "aeif_cond_alpha_multisynapse" );
+//  kernel().model_manager.register_node_model< iaf_chxk_2008 >(
+//    "iaf_chxk_2008" );
+//  kernel().model_manager.register_node_model< iaf_cond_alpha >(
+//    "iaf_cond_alpha" );
+//  kernel().model_manager.register_node_model< iaf_cond_exp >( "iaf_cond_exp" );
+//  kernel().model_manager.register_node_model< iaf_cond_exp_sfa_rr >(
+//    "iaf_cond_exp_sfa_rr" );
+//  kernel().model_manager.register_node_model< iaf_cond_alpha_mc >(
+//    "iaf_cond_alpha_mc" );
+//  kernel().model_manager.register_node_model< hh_psc_alpha >( "hh_psc_alpha" );
+//  kernel().model_manager.register_node_model< hh_psc_alpha_gap >(
+//    "hh_psc_alpha_gap" );
+//  kernel().model_manager.register_node_model< hh_cond_exp_traub >(
+//    "hh_cond_exp_traub" );
+//  kernel().model_manager.register_node_model< sinusoidal_gamma_generator >(
+//    "sinusoidal_gamma_generator" );
+//  kernel().model_manager.register_node_model< gif_cond_exp >( "gif_cond_exp" );
+//  kernel().model_manager.register_node_model< gif_cond_exp_multisynapse >(
+//    "gif_cond_exp_multisynapse" );
+//
+//  kernel().model_manager.register_node_model< aeif_cond_alpha >(
+//    "aeif_cond_alpha" );
+//  kernel().model_manager.register_node_model< aeif_cond_exp >(
+//    "aeif_cond_exp" );
+//  kernel().model_manager.register_node_model< aeif_psc_alpha >(
+//    "aeif_psc_alpha" );
+//  kernel().model_manager.register_node_model< aeif_psc_exp >( "aeif_psc_exp" );
+//  kernel().model_manager.register_node_model< ht_neuron >( "ht_neuron" );
+//  kernel().model_manager.register_node_model< aeif_cond_beta_multisynapse >(
+//    "aeif_cond_beta_multisynapse" );
+//  kernel().model_manager.register_node_model< aeif_cond_alpha_multisynapse >(
+//    "aeif_cond_alpha_multisynapse" );
 #endif
 
   // This version of the AdEx model does not depend on GSL.
-  kernel().model_manager.register_node_model< aeif_cond_alpha_RK5 >(
-    "aeif_cond_alpha_RK5",
-    /*private_model*/ false,
-    /*deprecation_info*/ "NEST 3.0" );
+//  kernel().model_manager.register_node_model< aeif_cond_alpha_RK5 >(
+//    "aeif_cond_alpha_RK5",
+//    /*private_model*/ false,
+//    /*deprecation_info*/ "NEST 3.0" );
 
 #ifdef HAVE_MUSIC
   //// proxies for inter-application communication using MUSIC
