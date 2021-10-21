@@ -203,6 +203,8 @@ nest::izhikevich::update( Time const& origin, const long from, const long to )
   const double h = Time::get_resolution().get_ms();
   double v_old, u_old;
 
+  bool thresholdDetected = false;
+
   for ( long lag = from; lag < to; ++lag )
   {
     // neuron is never refractory
@@ -214,26 +216,46 @@ nest::izhikevich::update( Time const& origin, const long from, const long to )
       S_.v_ +=
         h * ( 0.04 * v_old * v_old + 5.0 * v_old + 140.0 - u_old + S_.I_ + P_.I_e_ ) + B_.spikes_.get_value( lag );
       S_.u_ += h * P_.a_ * ( P_.b_ * v_old - u_old );
+
+      // lower bound of membrane potential                              // ***GTR moved from line 256
+      S_.v_ = ( S_.v_ < P_.V_min_ ? P_.V_min_ : S_.v_ );
+      if ( S_.v_ >= P_.V_th_ ) {
+        S_.v_ = P_.c_;
+        S_.u_ = S_.u_ + P_.d_;
+        
+        thresholdDetected = true;
+      }
     }
     // use numerics published in Izhikevich (2003) in this case (not
     // recommended)
     else
     {
       double I_syn = B_.spikes_.get_value( lag );
-      S_.v_ += h * 0.5 * ( 0.04 * S_.v_ * S_.v_ + 5.0 * S_.v_ + 140.0 - S_.u_ + S_.I_ + P_.I_e_ + I_syn );
-      S_.v_ += h * 0.5 * ( 0.04 * S_.v_ * S_.v_ + 5.0 * S_.v_ + 140.0 - S_.u_ + S_.I_ + P_.I_e_ + I_syn );
-      S_.u_ += h * P_.a_ * ( P_.b_ * S_.v_ - S_.u_ );
+      // S_.v_ += h * 0.5 * ( 0.04 * S_.v_ * S_.v_ + 5.0 * S_.v_ + 140.0 - S_.u_ + S_.I_ + P_.I_e_ + I_syn );
+      // S_.v_ += h * 0.5 * ( 0.04 * S_.v_ * S_.v_ + 5.0 * S_.v_ + 140.0 - S_.u_ + S_.I_ + P_.I_e_ + I_syn );
+      // S_.u_ += h * P_.a_ * ( P_.b_ * S_.v_ - S_.u_ );
+
+      for(int i = 0; i < 10; ++i) {                                    // ***GTR improved Euler 
+        double prev_V = S_.v_;
+        double prev_U = S_.u_;
+        S_.v_ += 0.1 * h * ( 0.04 * prev_V * prev_V + 5.0 * prev_V + 140.0 - prev_U + S_.I_ + P_.I_e_ + I_syn );
+        S_.u_ += 0.1 * h * P_.a_ * ( P_.b_ * prev_V - prev_U );
+        
+        // lower bound of membrane potential
+        S_.v_ = ( S_.v_ < P_.V_min_ ? P_.V_min_ : S_.v_ );
+        if ( S_.v_ >= P_.V_th_ ) {
+          S_.v_ = P_.c_;
+          S_.u_ = S_.u_ + P_.d_;
+          
+          thresholdDetected = true;
+        }
+      }
     }
 
-    // lower bound of membrane potential
-    S_.v_ = ( S_.v_ < P_.V_min_ ? P_.V_min_ : S_.v_ );
 
     // threshold crossing
-    if ( S_.v_ >= P_.V_th_ )
+    if ( thresholdDetected )                                          // ***GTR moved threshold detection into the solver
     {
-      S_.v_ = P_.c_;
-      S_.u_ = S_.u_ + P_.d_;
-
       // compute spike time
       set_spiketime( Time::step( origin.get_steps() + lag + 1 ) );
 
