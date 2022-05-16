@@ -194,9 +194,7 @@ nest::izhikevich::calibrate()
  * Update and spike handling functions
  */
 
-void
-nest::izhikevich::update( Time const& origin, const long from, const long to )
-{
+void nest::izhikevich::update( Time const& origin, const long from, const long to ) {
   assert( to >= 0 && ( delay ) from < kernel().connection_manager.get_min_delay() );
   assert( from < to );
 
